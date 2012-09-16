@@ -10,16 +10,15 @@ Installation
 
 Usage
 =====
-Add this line to your project's `grunt.js` gruntfile:
-
+Either run it via grunt by first adding this line to your project's `grunt.js` gruntfile:
 ```
 grunt.loadNpmTasks("grunt-vows");
 ```
-Either run it via grunt:
+then by running the `vows` task directly (or via an alias):
 ```
 › grunt vows
 ```
-or as a stand-alone command:
+or you can run it as a stand-alone command:
 ```
 › grunt-vows
 ```
