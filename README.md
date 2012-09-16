@@ -22,6 +22,7 @@ or you can run it as a stand-alone command:
 ```
 › grunt-vows
 ```
+(requires global installation, i.e. `npm install -g grunt-vows`)
 
 License
 =======
