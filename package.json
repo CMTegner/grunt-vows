@@ -1,0 +1,41 @@
+{
+    "name": "grunt-vows",
+    "description": "Run vows tests.",
+    "version": "0.1.0",
+    "homepage": "https://github.com/CMTegner/grunt-vows",
+    "author": {
+        "name": "Christian Maughan Tegnér",
+        "email": "christian.tegner@gmail.com"
+    },
+    "contributors": {
+        "name": "Christian Maughan Tegnér",
+        "email": "christian.tegner@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/CMTegner/grunt-vows.git"
+    },
+    "bugs": {
+        "url": "https://github.com/CMTegner/grunt-vows/issues"
+    },
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/CMTegner/grunt-vows/blob/master/LICENSE-MIT"
+    }],
+    "main": "grunt.js",
+    "bin": "bin/grunt-vows",
+    "engines": {
+        "node": "*"
+    },
+    "scripts": {
+        "test": "grunt vows"
+    },
+    "devDependencies": {
+        "grunt": "0.3.x"
+    },
+    "keywords": [
+        "gruntplugin",
+        "vows"
+    ]
+}
+
