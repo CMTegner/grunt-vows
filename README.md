@@ -24,6 +24,11 @@ or you can run it as a stand-alone command:
 ```
 (requires global installation, i.e. `npm install -g grunt-vows`)
 
+Caveats
+=======
+* Will only test files matching `test/*.js` (#3)
+* Hardcoded to report in 'spec' style (#1)
+
 License
 =======
 Copyright (c) 2012 Christian Maughan Tegnér  
