@@ -31,7 +31,8 @@
         "test": "grunt vows"
     },
     "devDependencies": {
-        "grunt": "0.3.x"
+        "grunt": "0.3.x",
+        "vows": "0.6.x"
     },
     "keywords": [
         "gruntplugin",

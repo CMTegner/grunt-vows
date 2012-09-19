@@ -9,10 +9,21 @@
 module.exports = function (grunt) {
     "use strict";
 
-    grunt.registerTask("vows", "Run vows tests.", function() {
+    function buildCommand() {
+        var cmd = ["vows"],
+            files = grunt.config("vows.files");
+        if (files) {
+            cmd.push(files);
+        }
+        if (grunt.config("vows.spec")) {
+            cmd.push("--spec");
+        }
+        return cmd.join(" ");
+    }
+
+    grunt.registerTask("vows", "Run vows tests.", function () {
         var done = this.async(),
-            args = this.args, // TODO: Needed?
-            vows = require("child_process").spawn("vows", ["--spec"]);
+            vows = require("child_process").exec(buildCommand());
 
         vows.stdout.on("data", function (data) {
             grunt.log.writeln(data);

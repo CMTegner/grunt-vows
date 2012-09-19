@@ -27,6 +27,7 @@ module.exports = function (grunt) {
             }
         },
         vows: {
+            files: "test/*.js",
             spec: true
         }
     });
