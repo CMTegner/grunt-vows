@@ -11,7 +11,7 @@ Installation
 Usage
 =====
 Either run it via grunt by first adding this line to your project's `grunt.js` gruntfile:
-```
+```javascript
 grunt.loadNpmTasks("grunt-vows");
 ```
 then by running the `vows` task directly (or via an alias):
@@ -24,9 +24,20 @@ or you can run it as a stand-alone command:
 ```
 (requires global installation, i.e. `npm install -g grunt-vows`)
 
+Configuration
+-------------
+Configuration is handled via the default grunt config schema:
+```javascript
+grunt.initConfig({
+    vows: {
+        files: "test/*.js",
+        spec: true
+    }
+});
+```
+
 Caveats
 =======
-* Will only test files matching `test/*.js` (#3)
 * Hardcoded to report in 'spec' style (#1)
 
 License
