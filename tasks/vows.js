@@ -9,16 +9,19 @@
 module.exports = function (grunt) {
     "use strict";
 
+    var reporters = ["spec", "json", "dot-matrix"];
+
     function buildCommand() {
-        var cmd = ["vows"],
-            files = grunt.config("vows.files");
-        if (files) {
-            cmd.push(files);
-        }
-        if (grunt.config("vows.spec")) {
-            cmd.push("--spec");
-        }
-        return cmd.join(" ");
+        return [
+            "vows",
+            grunt.helper("vows-get-files"),
+            grunt.helper("vows-get-reporter"),
+            grunt.helper("vows-get-tests-to-run"),
+            grunt.helper("vows-get-flag", "verbose"),
+            grunt.helper("vows-get-flag", "silent")
+        ].filter(function (entry) {
+            return entry !== null;
+        }).join(" ");
     }
 
     grunt.registerTask("vows", "Run vows tests.", function () {
@@ -28,14 +31,51 @@ module.exports = function (grunt) {
         vows.stdout.on("data", function (data) {
             grunt.log.writeln(data);
         });
-
         vows.stderr.on("data", function (data) {
             grunt.log.writeln(data);
         });
-
         vows.on("exit", function (code) {
             done(code);
         });
+    });
+
+    grunt.registerHelper("vows-get-files", function () {
+        var files = grunt.config("vows.files");
+
+        if (typeof files === "string") {
+            return files;
+        } else if (files instanceof Array) {
+            return files.join(" ");
+        }
+        return null;
+    });
+
+    grunt.registerHelper("vows-get-reporter", function () {
+        var reporter = grunt.config("vows.reporter"),
+            index = reporters.indexOf(reporter);
+
+        if (index === -1) {
+            return null;
+        }
+        return "--" + reporter;
+    });
+
+    grunt.registerHelper("vows-get-tests-to-run", function () {
+        var onlyRun = grunt.config("vows.onlyRun");
+
+        if (typeof onlyRun === "string") {
+            return "-m \"" + onlyRun.replace(/"/g, "\\\"") + "\"";
+        } else if (onlyRun instanceof RegExp) {
+            return "-r \"" + onlyRun.source + "\"";
+        }
+        return null;
+    });
+
+    grunt.registerHelper("vows-get-flag", function (flag) {
+        if (grunt.config("vows." + flag) === true) {
+            return "--" + flag;
+        }
+        return null;
     });
 };
 
