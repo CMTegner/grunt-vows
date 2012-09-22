@@ -28,7 +28,7 @@
         "node": "*"
     },
     "scripts": {
-        "test": "grunt vows"
+        "test": "grunt"
     },
     "devDependencies": {
         "grunt": "0.3.x",
@@ -39,4 +39,3 @@
         "vows"
     ]
 }
-

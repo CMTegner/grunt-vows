@@ -6,15 +6,15 @@ var VOWS = require("vows"),
 
 GRUNT.loadTasks(__dirname + "/../tasks");
 
-exports.task = VOWS.describe("grunt-vows").addBatch({
-    "when run": {
-        topic: function () {
-            return true;
-        },
+exports.task = VOWS.describe("grunt-vows")
+    .addBatch({
+        "when run": {
+            topic: function () {
+                return true;
+            },
 
-        "should run the tests": function (topic) {
-            ASSERT.isTrue(topic);
+            "should run the tests": function (topic) {
+                ASSERT.isTrue(topic);
+            }
         }
-    }
-});
-
+    });
