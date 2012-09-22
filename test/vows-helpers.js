@@ -127,7 +127,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers").addBatch({
             ASSERT.isNull(topic);
         }
     },
-    "get boolean option called with a flag set to true in the config": {
+    "get flag called with a flag set to true in the config": {
         topic: function () {
             GRUNT.config.init({
                 vows: {
@@ -143,7 +143,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers").addBatch({
             ASSERT.strictEqual(topic, "--verbose");
         }
     },
-    "get boolean option called with a flag set to false in the config": {
+    "get flag called with a flag set to false in the config": {
         topic: function () {
             GRUNT.config.init({
                 vows: {
@@ -157,13 +157,56 @@ exports.helpers = VOWS.describe("grunt-vows helpers").addBatch({
             ASSERT.isNull(topic);
         }
     },
-    "get boolean option called with a flag not defined in the config": {
+    "get flag called with a flag not defined in the config": {
         topic: function () {
             return GRUNT.helper("vows-get-flag", "silent");
         },
 
         "returns null": function (topic) {
             ASSERT.isNull(topic);
+        }
+    },
+    "get color flag called with no 'colors' flag set in config": {
+        topic: function () {
+            return GRUNT.helper("vows-get-color-flag");
+        },
+
+        "returns '--color'": function (topic) {
+            ASSERT.isNotNull(topic);
+            ASSERT.isString(topic);
+            ASSERT.strictEqual(topic, "--color");
+        }
+    },
+    "get color flag called with the 'colors' flag set to true": {
+        topic: function () {
+            GRUNT.config.init({
+                vows: {
+                    colors: true
+                }
+            });
+            return GRUNT.helper("vows-get-color-flag");
+        },
+
+        "returns '--color'": function (topic) {
+            ASSERT.isNotNull(topic);
+            ASSERT.isString(topic);
+            ASSERT.strictEqual(topic, "--color");
+        }
+    },
+    "get color flag called with the 'colors' flag set to false": {
+        topic: function () {
+            GRUNT.config.init({
+                vows: {
+                    colors: false
+                }
+            });
+            return GRUNT.helper("vows-get-color-flag");
+        },
+
+        "returns '--no-color'": function (topic) {
+            ASSERT.isNotNull(topic);
+            ASSERT.isString(topic);
+            ASSERT.strictEqual(topic, "--no-color");
         }
     }
 });

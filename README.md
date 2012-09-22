@@ -41,7 +41,10 @@ Configuration is handled via the default grunt config schema:
             // Boolean, defaults to false
             verbose: false,
             // Boolean, defaults to false
-            silent: false
+            silent: false,
+            // Colorize reporter output,
+            // boolean, defaults to true
+            colors: true
         }
     });
 

@@ -18,7 +18,8 @@ module.exports = function (grunt) {
             grunt.helper("vows-get-reporter"),
             grunt.helper("vows-get-tests-to-run"),
             grunt.helper("vows-get-flag", "verbose"),
-            grunt.helper("vows-get-flag", "silent")
+            grunt.helper("vows-get-flag", "silent"),
+            grunt.helper("vows-get-color-flag")
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
@@ -28,11 +29,9 @@ module.exports = function (grunt) {
         var done = this.async(),
             vows = require("child_process").exec(buildCommand());
 
-        vows.stdout.on("data", function (data) {
-            grunt.log.writeln(data);
-        });
+        vows.stdout.pipe(process.stdout);
         vows.stderr.on("data", function (data) {
-            grunt.log.writeln(data);
+            grunt.log.error(data);
         });
         vows.on("exit", function (code) {
             done(code);
@@ -76,6 +75,14 @@ module.exports = function (grunt) {
             return "--" + flag;
         }
         return null;
+    });
+
+    grunt.registerHelper("vows-get-color-flag", function () {
+        var value = grunt.config("vows.colors");
+        if (value === false) {
+            return "--no-color";
+        }
+        return "--color";
     });
 };
 
