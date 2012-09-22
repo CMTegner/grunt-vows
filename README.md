@@ -30,7 +30,7 @@ Configuration is handled via the default grunt config schema:
         vows: {
             // String or array of strings
             // determining which files to include
-            files: ["test/*.js", "spec/*],
+            files: ["test/*.js", "spec/*"],
             // String {spec|json|dot-matrix}
             // defaults to "dot-matrix"
             reporter: "spec",
