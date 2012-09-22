@@ -168,15 +168,3 @@ exports.helpers = VOWS.describe("grunt-vows helpers").addBatch({
     }
 });
 
-exports.suite = VOWS.describe("grunt-vows").addBatch({
-    "when run": {
-        topic: function () {
-            return true;
-        },
-
-        "should run the tests": function (topic) {
-            ASSERT.isTrue(topic);
-        }
-    }
-});
-
