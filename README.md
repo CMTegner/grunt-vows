@@ -1,4 +1,4 @@
-grunt-vows
+grunt-vows [![Build Status](https://secure.travis-ci.org/CMTegner/grunt-vows.png)](http://travis-ci.org/CMTegner/grunt-vows)
 ==========
 A grunt task for running your vows tests.
 
