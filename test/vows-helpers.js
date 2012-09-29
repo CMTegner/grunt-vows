@@ -53,7 +53,20 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             "returns null": function (topic) {
                 ASSERT.isNull(topic);
             }
-        }})
+        },
+        "get files called when no 'files' config is set": {
+            topic: function () {
+                GRUNT.config.init({
+                    vows: {}
+                });
+                return GRUNT.helper("vows-get-files");
+            },
+
+            "returns null": function (topic) {
+                ASSERT.isNull(topic);
+            }
+        }
+    })
 
     .addBatch({
         "get reporter called with a valid reporter value": {
@@ -85,7 +98,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             "returns null": function (topic) {
                 ASSERT.isNull(topic);
             }
-        }})
+        }
+    })
 
     .addBatch({
         "get tests to run called with a string": {
@@ -131,7 +145,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             "returns null": function (topic) {
                 ASSERT.isNull(topic);
             }
-        }})
+        }
+    })
 
     .addBatch({
         "get flag called with a flag set to true in the config": {
@@ -172,7 +187,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             "returns null": function (topic) {
                 ASSERT.isNull(topic);
             }
-        }})
+        }
+    })
 
     .addBatch({
         "get color flag called with no 'colors' flag set in config": {
@@ -216,6 +232,55 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                 ASSERT.isNotNull(topic);
                 ASSERT.isString(topic);
                 ASSERT.strictEqual(topic, "--no-color");
+            }
+        }
+    })
+
+    .addBatch({
+        "build command": {
+            topic: function () {
+                GRUNT.config.init({
+                    vows: {
+                        files: "tests",
+                        reporter: "tap",
+                        onlyRun: "helper",
+                        verbose: true,
+                        silent: true
+                    }
+                });
+                return GRUNT.helper("vows-build-command");
+            },
+
+            "should return a string": function (topic) {
+                ASSERT.isString(topic);
+            },
+
+            "should include vows command at the start of the string": function (topic) {
+                ASSERT.match(topic, /^vows\s/);
+            },
+
+            "should include 'files' option when specified": function (topic) {
+                ASSERT.match(topic, /\stests\s/);
+            },
+
+            "should include reporter flag when specified": function (topic) {
+                ASSERT.match(topic, /\s--tap\s/);
+            },
+
+            "should include '-m' option when specified": function (topic) {
+                ASSERT.match(topic, /\s-m\s"helper"\s/);
+            },
+
+            "should include 'verbose' flag when set": function (topic) {
+                ASSERT.match(topic, /\s--verbose\s/);
+            },
+
+            "should include 'silent' flag when set": function (topic) {
+                ASSERT.match(topic, /\s--silent\s/);
+            },
+
+            "should include '--color' flag by default": function (topic) {
+                ASSERT.match(topic, /\s--color/);
             }
         }
     });

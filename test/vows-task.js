@@ -5,16 +5,145 @@ var VOWS = require("vows"),
     GRUNT = require("grunt");
 
 GRUNT.loadTasks(__dirname + "/../tasks");
+GRUNT.file.setBase(__dirname);
 
 exports.task = VOWS.describe("grunt-vows")
     .addBatch({
-        "when run": {
+        "when run with no matching tests": {
             topic: function () {
-                return true;
+                var callback = this.callback,
+                    called;
+                GRUNT.config.init({
+                    vows: {
+                        files: "test/*.js",
+                        onlyRun: "none",
+                        silent: true
+                    }
+                });
+                GRUNT.task.options({
+                    done: function () {
+                        if (!called) {
+                            called = true;
+                            callback(true);
+                        }
+                    },
+                    error: function () {
+                        if (!called) {
+                            called = true;
+                            callback(false);
+                        }
+                    }
+                });
+                GRUNT.task.run("vows").start();
             },
 
-            "should run the tests": function (topic) {
-                ASSERT.isTrue(topic);
+            "should succeed": function (result) {
+                ASSERT.isTrue(result);
+            }
+        }
+    })
+
+    .addBatch({
+        "when run with tests that pass": {
+            topic: function () {
+                var callback = this.callback,
+                    called;
+                GRUNT.config.init({
+                    vows: {
+                        files: "test/*.js",
+                        onlyRun: "pass",
+                        silent: true
+                    }
+                });
+                GRUNT.task.options({
+                    done: function () {
+                        if (!called) {
+                            called = true;
+                            callback(true);
+                        }
+                    },
+                    error: function () {
+                        if (!called) {
+                            called = true;
+                            callback(false);
+                        }
+                    }
+                });
+                GRUNT.task.run("vows").start();
+            },
+
+            "should succeed": function (result) {
+                ASSERT.isTrue(result);
+            }
+        }
+    })
+
+    .addBatch({
+        "when run with tests that fail": {
+            topic: function () {
+                var callback = this.callback,
+                    called;
+                GRUNT.config.init({
+                    vows: {
+                        files: "test/*.js",
+                        onlyRun: "fail",
+                        silent: true
+                    }
+                });
+                GRUNT.task.options({
+                    done: function () {
+                        if (!called) {
+                            called = true;
+                            callback(true);
+                        }
+                    },
+                    error: function () {
+                        if (!called) {
+                            called = true;
+                            callback(false);
+                        }
+                    }
+                });
+                GRUNT.task.run("vows").start();
+            },
+
+            "should fail": function (result) {
+                ASSERT.isFalse(result);
+            }
+        }
+    })
+
+    .addBatch({
+        "when run with tests that err": {
+            topic: function () {
+                var callback = this.callback,
+                    called;
+                GRUNT.config.init({
+                    vows: {
+                        files: "test/*.js",
+                        onlyRun: "err",
+                        silent: true
+                    }
+                });
+                GRUNT.task.options({
+                    done: function () {
+                        if (!called) {
+                            called = true;
+                            callback(true);
+                        }
+                    },
+                    error: function () {
+                        if (!called) {
+                            called = true;
+                            callback(false);
+                        }
+                    }
+                });
+                GRUNT.task.run("vows").start();
+            },
+
+            "should fail": function (result) {
+                ASSERT.isFalse(result);
             }
         }
     });

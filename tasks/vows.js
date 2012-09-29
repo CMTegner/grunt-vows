@@ -9,9 +9,33 @@
 module.exports = function (grunt) {
     "use strict";
 
-    var reporters = ["spec", "json", "dot-matrix"];
+    var reporters = ["spec", "json", "dot-matrix", "tap", "xunit"];
 
-    function buildCommand() {
+    /**
+     * Convenience method for writing data to streams.
+     * This method ensures that data that only contains line feeds is not written.
+     * Note that this method is meant to be used with Function#bind() where `this` is bound to the stream to write to.
+     *
+     * @param {String} data the data to write
+     */
+    function writer(data) {
+        if (!/^(\r\n|\n|\r)$/gm.test(data)) {
+            this.write(data);
+        }
+    }
+
+    grunt.registerTask("vows", "Run vows tests.", function () {
+        var done = this.async(),
+            vows = require("child_process").exec(grunt.helper("vows-build-command"));
+
+        vows.stdout.on("data", writer.bind(process.stdout));
+        vows.stderr.on("data", writer.bind(process.stderr));
+        vows.on("exit", function (code) {
+            done(code === 0);
+        });
+    });
+
+    grunt.registerHelper("vows-build-command", function () {
         return [
             "vows",
             grunt.helper("vows-get-files"),
@@ -23,19 +47,6 @@ module.exports = function (grunt) {
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
-    }
-
-    grunt.registerTask("vows", "Run vows tests.", function () {
-        var done = this.async(),
-            vows = require("child_process").exec(buildCommand());
-
-        vows.stdout.pipe(process.stdout);
-        vows.stderr.on("data", function (data) {
-            grunt.log.error(data);
-        });
-        vows.on("exit", function (code) {
-            done(code);
-        });
     });
 
     grunt.registerHelper("vows-get-files", function () {
@@ -85,4 +96,3 @@ module.exports = function (grunt) {
         return "--color";
     });
 };
-

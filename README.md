@@ -31,7 +31,7 @@ Configuration is handled via the default grunt config schema:
             // String or array of strings
             // determining which files to include
             files: ["test/*.js", "spec/*"],
-            // String {spec|json|dot-matrix}
+            // String {spec|json|dot-matrix|xunit|tap}
             // defaults to "dot-matrix"
             reporter: "spec",
             // String or RegExp which is
@@ -50,6 +50,5 @@ Configuration is handled via the default grunt config schema:
 
 License
 -------
-Copyright (c) 2012 Christian Maughan Tegnér  
+Copyright (c) 2012 Christian Maughan Tegnér
 Licensed under the MIT license.
-
