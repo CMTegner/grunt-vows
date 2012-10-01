@@ -27,8 +27,14 @@ module.exports = function (grunt) {
             }
         },
         vows: {
-            files: "test/*.js",
-            reporter: "spec"
+            helpers: {
+                files: "test/helpers.js",
+                reporter: "spec"
+            },
+            task: {
+                files: "test/task.js",
+                reporter: "spec"
+            }
         }
     });
 

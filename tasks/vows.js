@@ -24,9 +24,9 @@ module.exports = function (grunt) {
         }
     }
 
-    grunt.registerTask("vows", "Run vows tests.", function () {
+    grunt.registerMultiTask("vows", "Run vows tests.", function () {
         var done = this.async(),
-            vows = require("child_process").exec(grunt.helper("vows-build-command"));
+            vows = require("child_process").exec(grunt.helper("vows-build-command", ["vows", this.target]));
 
         vows.stdout.on("data", writer.bind(process.stdout));
         vows.stderr.on("data", writer.bind(process.stderr));
@@ -35,22 +35,22 @@ module.exports = function (grunt) {
         });
     });
 
-    grunt.registerHelper("vows-build-command", function () {
+    grunt.registerHelper("vows-build-command", function (configPrefix) {
         return [
             "vows",
-            grunt.helper("vows-get-files"),
-            grunt.helper("vows-get-reporter"),
-            grunt.helper("vows-get-tests-to-run"),
-            grunt.helper("vows-get-flag", "verbose"),
-            grunt.helper("vows-get-flag", "silent"),
-            grunt.helper("vows-get-color-flag")
+            grunt.helper("vows-get-files", configPrefix),
+            grunt.helper("vows-get-reporter", configPrefix),
+            grunt.helper("vows-get-tests-to-run", configPrefix),
+            grunt.helper("vows-get-flag", "verbose", configPrefix),
+            grunt.helper("vows-get-flag", "silent", configPrefix),
+            grunt.helper("vows-get-color-flag", configPrefix)
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
     });
 
-    grunt.registerHelper("vows-get-files", function () {
-        var files = grunt.config("vows.files");
+    grunt.registerHelper("vows-get-files", function (configPrefix) {
+        var files = grunt.config(configPrefix.concat(["files"]));
 
         if (typeof files === "string") {
             return files;
@@ -60,8 +60,8 @@ module.exports = function (grunt) {
         return null;
     });
 
-    grunt.registerHelper("vows-get-reporter", function () {
-        var reporter = grunt.config("vows.reporter"),
+    grunt.registerHelper("vows-get-reporter", function (configPrefix) {
+        var reporter = grunt.config(configPrefix.concat("reporter")),
             index = reporters.indexOf(reporter);
 
         if (index === -1) {
@@ -70,8 +70,8 @@ module.exports = function (grunt) {
         return "--" + reporter;
     });
 
-    grunt.registerHelper("vows-get-tests-to-run", function () {
-        var onlyRun = grunt.config("vows.onlyRun");
+    grunt.registerHelper("vows-get-tests-to-run", function (configPrefix) {
+        var onlyRun = grunt.config(configPrefix.concat("onlyRun"));
 
         if (typeof onlyRun === "string") {
             return "-m \"" + onlyRun.replace(/"/g, "\\\"") + "\"";
@@ -81,15 +81,15 @@ module.exports = function (grunt) {
         return null;
     });
 
-    grunt.registerHelper("vows-get-flag", function (flag) {
-        if (grunt.config("vows." + flag) === true) {
+    grunt.registerHelper("vows-get-flag", function (flag, configPrefix) {
+        if (grunt.config(configPrefix.concat(flag)) === true) {
             return "--" + flag;
         }
         return null;
     });
 
-    grunt.registerHelper("vows-get-color-flag", function () {
-        var value = grunt.config("vows.colors");
+    grunt.registerHelper("vows-get-color-flag", function (configPrefix) {
+        var value = grunt.config(configPrefix.concat("colors"));
         if (value === false) {
             return "--no-color";
         }

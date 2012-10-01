@@ -24,27 +24,31 @@ or you can run it as a stand-alone command:
 
 Configuration
 -------------
-Configuration is handled via the default grunt config schema:
+*Note: As of version 0.2.0 grunt-vows is a multi-task!*
+
+Configuration is handled via the default grunt multi-task config schema:
 
     grunt.initConfig({
         vows: {
-            // String or array of strings
-            // determining which files to include
-            files: ["test/*.js", "spec/*"],
-            // String {spec|json|dot-matrix|xunit|tap}
-            // defaults to "dot-matrix"
-            reporter: "spec",
-            // String or RegExp which is
-            // matched against title to
-            // restrict which tests to run
-            onlyRun: /helper/,
-            // Boolean, defaults to false
-            verbose: false,
-            // Boolean, defaults to false
-            silent: false,
-            // Colorize reporter output,
-            // boolean, defaults to true
-            colors: true
+            all: {
+                // String or array of strings
+                // determining which files to include
+                files: ["test/*.js", "spec/*"],
+                // String {spec|json|dot-matrix|xunit|tap}
+                // defaults to "dot-matrix"
+                reporter: "spec",
+                // String or RegExp which is
+                // matched against title to
+                // restrict which tests to run
+                onlyRun: /helper/,
+                // Boolean, defaults to false
+                verbose: false,
+                // Boolean, defaults to false
+                silent: false,
+                // Colorize reporter output,
+                // boolean, defaults to true
+                colors: true
+            }
         }
     });
 

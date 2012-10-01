@@ -15,9 +15,11 @@ exports.task = VOWS.describe("grunt-vows")
                     called;
                 GRUNT.config.init({
                     vows: {
-                        files: "test/*.js",
-                        onlyRun: "none",
-                        silent: true
+                        all: {
+                            files: "test/*.js",
+                            onlyRun: "none",
+                            silent: true
+                        }
                     }
                 });
                 GRUNT.task.options({
@@ -50,9 +52,11 @@ exports.task = VOWS.describe("grunt-vows")
                     called;
                 GRUNT.config.init({
                     vows: {
-                        files: "test/*.js",
-                        onlyRun: "pass",
-                        silent: true
+                        all: {
+                            files: "test/*.js",
+                            onlyRun: "pass",
+                            silent: true
+                        }
                     }
                 });
                 GRUNT.task.options({
@@ -85,9 +89,11 @@ exports.task = VOWS.describe("grunt-vows")
                     called;
                 GRUNT.config.init({
                     vows: {
-                        files: "test/*.js",
-                        onlyRun: "fail",
-                        silent: true
+                        all: {
+                            files: "test/*.js",
+                            onlyRun: "fail",
+                            silent: true
+                        }
                     }
                 });
                 GRUNT.task.options({
@@ -120,9 +126,11 @@ exports.task = VOWS.describe("grunt-vows")
                     called;
                 GRUNT.config.init({
                     vows: {
-                        files: "test/*.js",
-                        onlyRun: "err",
-                        silent: true
+                        all: {
+                            files: "test/*.js",
+                            onlyRun: "err",
+                            silent: true
+                        }
                     }
                 });
                 GRUNT.task.options({

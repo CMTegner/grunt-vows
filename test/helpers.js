@@ -2,7 +2,8 @@
 
 var VOWS = require("vows"),
     ASSERT = require("assert"),
-    GRUNT = require("grunt");
+    GRUNT = require("grunt"),
+    configPrefix = ["vows", "all"];
 
 GRUNT.loadTasks(__dirname + "/../tasks");
 
@@ -12,10 +13,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        files: "files/*.js"
+                        all: {
+                            files: "files/*.js"
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-files");
+                return GRUNT.helper("vows-get-files", configPrefix);
             },
 
             "returns the same argument": function (topic) {
@@ -28,10 +31,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        files: ["files/*.js", "spec/*.js", "foo/bar"]
+                        all: {
+                            files: ["files/*.js", "spec/*.js", "foo/bar"]
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-files");
+                return GRUNT.helper("vows-get-files", configPrefix);
             },
 
             "returns all array entries concatinated together, divided by a single whitespace": function (topic) {
@@ -44,10 +49,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        files: 123
+                        all: {
+                            files: 123
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-files");
+                return GRUNT.helper("vows-get-files", configPrefix);
             },
 
             "returns null": function (topic) {
@@ -57,9 +64,11 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         "get files called when no 'files' config is set": {
             topic: function () {
                 GRUNT.config.init({
-                    vows: {}
+                    vows: {
+                        all: {}
+                    }
                 });
-                return GRUNT.helper("vows-get-files");
+                return GRUNT.helper("vows-get-files", configPrefix);
             },
 
             "returns null": function (topic) {
@@ -73,10 +82,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        reporter: "spec"
+                        all: {
+                            reporter: "spec"
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-reporter");
+                return GRUNT.helper("vows-get-reporter", configPrefix);
             },
 
             "returns a double-hyphen prefixed string": function (topic) {
@@ -89,10 +100,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        reporter: "foo"
+                        all: {
+                            reporter: "foo"
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-reporter");
+                return GRUNT.helper("vows-get-reporter", configPrefix);
             },
 
             "returns null": function (topic) {
@@ -106,10 +119,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        onlyRun: "should \"only\""
+                        all: {
+                            onlyRun: "should \"only\""
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-tests-to-run");
+                return GRUNT.helper("vows-get-tests-to-run", configPrefix);
             },
 
             "returns the string matching option": function (topic) {
@@ -122,10 +137,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        onlyRun: /test|run/
+                        all: {
+                            onlyRun: /test|run/
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-tests-to-run");
+                return GRUNT.helper("vows-get-tests-to-run", configPrefix);
             },
 
             "returns the RegExp matching option": function (topic) {
@@ -137,9 +154,13 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         "get tests to run called with anything else": {
             topic: function () {
                 GRUNT.config.init({
-                    onlyRun: false
+                    vows: {
+                        all: {
+                            onlyRun: false
+                        }
+                    }
                 });
-                return GRUNT.helper("vows-get-tests-to-run");
+                return GRUNT.helper("vows-get-tests-to-run", configPrefix);
             },
 
             "returns null": function (topic) {
@@ -153,10 +174,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        verbose: true
+                        all: {
+                            verbose: true
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-flag", "verbose");
+                return GRUNT.helper("vows-get-flag", "verbose", configPrefix);
             },
 
             "returns a double-hyphen prefixed flag string": function (topic) {
@@ -169,10 +192,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        verbose: false
+                        all: {
+                            verbose: false
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-flag", "verbose");
+                return GRUNT.helper("vows-get-flag", "verbose", configPrefix);
             },
 
             "returns null": function (topic) {
@@ -181,7 +206,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get flag called with a flag not defined in the config": {
             topic: function () {
-                return GRUNT.helper("vows-get-flag", "silent");
+                return GRUNT.helper("vows-get-flag", "silent", configPrefix);
             },
 
             "returns null": function (topic) {
@@ -193,7 +218,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get color flag called with no 'colors' flag set in config": {
             topic: function () {
-                return GRUNT.helper("vows-get-color-flag");
+                return GRUNT.helper("vows-get-color-flag", configPrefix);
             },
 
             "returns '--color'": function (topic) {
@@ -206,10 +231,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        colors: true
+                        all: {
+                            colors: true
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-color-flag");
+                return GRUNT.helper("vows-get-color-flag", configPrefix);
             },
 
             "returns '--color'": function (topic) {
@@ -222,10 +249,12 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        colors: false
+                        all: {
+                            colors: false
+                        }
                     }
                 });
-                return GRUNT.helper("vows-get-color-flag");
+                return GRUNT.helper("vows-get-color-flag", configPrefix);
             },
 
             "returns '--no-color'": function (topic) {
@@ -241,14 +270,16 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
             topic: function () {
                 GRUNT.config.init({
                     vows: {
-                        files: "tests",
-                        reporter: "tap",
-                        onlyRun: "helper",
-                        verbose: true,
-                        silent: true
+                        all: {
+                            files: "tests",
+                            reporter: "tap",
+                            onlyRun: "helper",
+                            verbose: true,
+                            silent: true
+                        }
                     }
                 });
-                return GRUNT.helper("vows-build-command");
+                return GRUNT.helper("vows-build-command", configPrefix);
             },
 
             "should return a string": function (topic) {
