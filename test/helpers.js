@@ -3,8 +3,9 @@
 var VOWS = require("vows"),
     ASSERT = require("assert"),
     GRUNT = require("grunt"),
-    configPrefix = ["vows", "all"];
+    helpers = require("../src/vows").init(GRUNT);
 
+helpers.setTarget("all");
 GRUNT.loadTasks(__dirname + "/../tasks");
 
 exports.helpers = VOWS.describe("grunt-vows helpers")
@@ -18,7 +19,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-files", configPrefix);
+                return helpers.getFiles();
             },
 
             "returns the same argument": function (topic) {
@@ -36,7 +37,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-files", configPrefix);
+                return helpers.getFiles();
             },
 
             "returns all array entries concatinated together, divided by a single whitespace": function (topic) {
@@ -54,7 +55,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-files", configPrefix);
+                return helpers.getFiles();
             },
 
             "returns null": function (topic) {
@@ -68,7 +69,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         all: {}
                     }
                 });
-                return GRUNT.helper("vows-get-files", configPrefix);
+                return helpers.getFiles();
             },
 
             "returns null": function (topic) {
@@ -87,7 +88,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-reporter", configPrefix);
+                return helpers.getReporter();
             },
 
             "returns a double-hyphen prefixed string": function (topic) {
@@ -105,7 +106,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-reporter", configPrefix);
+                return helpers.getReporter();
             },
 
             "returns null": function (topic) {
@@ -124,7 +125,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-tests-to-run", configPrefix);
+                return helpers.getTestsToRun();
             },
 
             "returns the string matching option": function (topic) {
@@ -142,7 +143,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-tests-to-run", configPrefix);
+                return helpers.getTestsToRun();
             },
 
             "returns the RegExp matching option": function (topic) {
@@ -160,7 +161,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-tests-to-run", configPrefix);
+                return helpers.getTestsToRun();
             },
 
             "returns null": function (topic) {
@@ -179,7 +180,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-flag", "verbose", configPrefix);
+                return helpers.getFlag("verbose");
             },
 
             "returns a double-hyphen prefixed flag string": function (topic) {
@@ -197,7 +198,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-flag", "verbose", configPrefix);
+                return helpers.getFlag("verbose");
             },
 
             "returns null": function (topic) {
@@ -206,7 +207,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get flag called with a flag not defined in the config": {
             topic: function () {
-                return GRUNT.helper("vows-get-flag", "silent", configPrefix);
+                return helpers.getFlag("silent");
             },
 
             "returns null": function (topic) {
@@ -218,7 +219,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get color flag called with no 'colors' flag set in config": {
             topic: function () {
-                return GRUNT.helper("vows-get-color-flag", configPrefix);
+                return helpers.getColorFlag();
             },
 
             "returns '--color'": function (topic) {
@@ -236,7 +237,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-color-flag", configPrefix);
+                return helpers.getColorFlag();
             },
 
             "returns '--color'": function (topic) {
@@ -254,13 +255,41 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-get-color-flag", configPrefix);
+                return helpers.getColorFlag();
             },
 
             "returns '--no-color'": function (topic) {
                 ASSERT.isNotNull(topic);
                 ASSERT.isString(topic);
                 ASSERT.strictEqual(topic, "--no-color");
+            }
+        }
+    })
+
+    .addBatch({
+        "config key": {
+            topic: function () {
+                return helpers.configKey("test");
+            },
+
+            "should return an array": function (topic) {
+                ASSERT.isArray(topic);
+            },
+
+            "should have a length of three": function (topic) {
+                ASSERT.strictEqual(topic.length, 3);
+            },
+
+            "should have an element at index '0' matching 'vows'": function (topic) {
+                ASSERT.strictEqual(topic[0], "vows");
+            },
+
+            "should have an element at index '1' matching the target name": function (topic) {
+                ASSERT.strictEqual(topic[1], "all");
+            },
+
+            "should have an element at index '2' matching the key": function (topic) {
+                ASSERT.strictEqual(topic[2], "test");
             }
         }
     })
@@ -279,7 +308,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                         }
                     }
                 });
-                return GRUNT.helper("vows-build-command", configPrefix);
+                return helpers.buildCommand();
             },
 
             "should return a string": function (topic) {
