@@ -58,7 +58,7 @@ exports.init  = function (grunt) {
 
     function getCoverageFormat() {
         var outputFormat = grunt.config(configKey("coverageOutput"));
-        if (outputFormat === null) return null;
+        if (typeof outputFormat != "string") return null;
 	outputFormat = outputFormat.trim();
 	if (outputFormat === "plain") return "--cover-plain";
 	if (outputFormat === "html") return "--cover-html";
