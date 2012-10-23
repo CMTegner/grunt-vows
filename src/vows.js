@@ -60,9 +60,9 @@ exports.init  = function (grunt) {
         var outputFormat = grunt.config(configKey("coverageOutput"));
         if (typeof outputFormat != "string") return null;
 	outputFormat = outputFormat.trim();
-	if (outputFormat === "plain") return "--cover-plain";
-	if (outputFormat === "html") return "--cover-html";
-        return "--cover-json";
+	if (outputFormat === "plain") return "--cover --cover-plain";
+	if (outputFormat === "html") return "--cover --cover-html";
+        return "--cover --cover-json";
     }
     
     function getTestsToRun() {
