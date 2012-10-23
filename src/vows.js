@@ -28,7 +28,8 @@ exports.init  = function (grunt) {
             getTestsToRun(),
             getFlag("verbose"),
             getFlag("silent"),
-            getColorFlag()
+            getColorFlag(),
+            getCoverageFormat()
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
@@ -55,6 +56,15 @@ exports.init  = function (grunt) {
         return "--" + reporter;
     }
 
+    function getCoverageFormat() {
+        var outputFormat = grunt.config(configKey("coverageOutput"));
+        if (outputFormat === null) return null;
+	outputFormat = outputFormat.trim();
+	if (output === "plain") return "--cover-plain";
+	if (output === "html") return "--cover-html";
+        return "--cover-json";
+    }
+    
     function getTestsToRun() {
         var onlyRun = grunt.config(configKey("onlyRun"));
 
