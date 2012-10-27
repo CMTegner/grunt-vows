@@ -35,7 +35,7 @@ exports.suit = VOWS.describe("dummy test suit")
             },
 
             "is err'ing": function () {
-                throw "OH LAWDY LAWD!"
+                throw "OH LAWDY LAWD!";
             }
         }
     });
