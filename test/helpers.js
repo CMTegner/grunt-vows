@@ -304,6 +304,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                             reporter: "tap",
                             onlyRun: "helper",
                             verbose: true,
+                            isolate: true,
                             silent: true
                         }
                     }
@@ -341,6 +342,9 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
 
             "should include '--color' flag by default": function (topic) {
                 ASSERT.match(topic, /\s--color/);
+            },
+            "should include 'isolate' flag when specified": function (topic) {
+                ASSERT.match(topic, /\s--isolate\s/);
             }
         }
     });
