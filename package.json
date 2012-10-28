@@ -22,7 +22,7 @@
         "type": "MIT",
         "url": "https://github.com/CMTegner/grunt-vows/blob/master/LICENSE-MIT"
     }],
-    "main": "grunt.js",
+    "main": "./tasks/grunt-vows",
     "bin": "bin/grunt-vows",
     "engines": {
         "node": "*"

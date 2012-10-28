@@ -12,8 +12,8 @@ module.exports = function (grunt) {
         },
         watch: {
             all: {
-               files: "<config:lint.all>",
-               tasks: "lint vows"
+                files: "<config:lint.all>",
+                tasks: "lint vows"
             }
         },
         jshint: {
