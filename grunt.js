@@ -3,12 +3,17 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         lint: {
-            all: ["*.js", "test/*.js"]
+            all: [
+                "grunt.js",
+                "src/**/*.js",
+                "task/**/*.js",
+                "test/**/*.js"
+            ]
         },
         watch: {
             all: {
-               files: "<config:lint.all>",
-               tasks: "lint vows"
+                files: "<config:lint.all>",
+                tasks: "lint vows"
             }
         },
         jshint: {
@@ -17,9 +22,8 @@ module.exports = function (grunt) {
                 forin: false,
                 indent: 4,
                 plusplus: false,
-                quotemark: "double",
+                quotmark: "double",
                 regexp: false,
-                maxstatements: 1,
                 // Relaxing options
                 globalstrict: true,
                 // Environments
