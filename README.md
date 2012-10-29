@@ -47,7 +47,11 @@ Configuration is handled via the default grunt multi-task config schema:
                 silent: false,
                 // Colorize reporter output,
                 // boolean, defaults to true
-                colors: true
+                colors: true,
+                // Run each test in its own
+                // vows process, defaults to
+                // false
+                isolate: false
             }
         }
     });
