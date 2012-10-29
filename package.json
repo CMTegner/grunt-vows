@@ -1,7 +1,7 @@
 {
     "name": "grunt-vows",
     "description": "A grunt task for running vows tests.",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "homepage": "https://github.com/CMTegner/grunt-vows",
     "author": {
         "name": "Christian Maughan Tegnér",
@@ -31,7 +31,9 @@
         "test": "grunt"
     },
     "devDependencies": {
-        "grunt": "0.3.x",
+        "grunt": "0.4.0a",
+        "grunt-contrib-jshint": "0.1.x",
+        "grunt-contrib-watch": "0.1.x",
         "vows": "0.6.x"
     },
     "keywords": [

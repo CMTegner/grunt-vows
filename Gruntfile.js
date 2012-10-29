@@ -1,22 +1,23 @@
 module.exports = function (grunt) {
     "use strict";
 
+    var defaultTasks = ["jshint", "vows"],
+        jsFiles = [
+            "Gruntfile.js",
+            "src/**/*.js",
+            "task/**/*.js",
+            "test/**/*.js"
+        ];
+
     grunt.initConfig({
-        lint: {
-            all: [
-                "grunt.js",
-                "src/**/*.js",
-                "task/**/*.js",
-                "test/**/*.js"
-            ]
-        },
         watch: {
             all: {
-                files: "<config:lint.all>",
-                tasks: "lint vows"
+                files: jsFiles,
+                tasks: defaultTasks
             }
         },
         jshint: {
+            all: jsFiles,
             options: {
                 // Enforcing options
                 forin: false,
@@ -42,9 +43,11 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadTasks("tasks");
 
-    grunt.registerTask("default", "lint vows");
+    grunt.registerTask("default", defaultTasks);
 
 };
 
