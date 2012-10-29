@@ -28,6 +28,7 @@ exports.init  = function (grunt) {
             getTestsToRun(),
             getFlag("verbose"),
             getFlag("silent"),
+            getFlag("isolate"),
             getColorFlag()
         ].filter(function (entry) {
             return entry !== null;
