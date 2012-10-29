@@ -29,7 +29,8 @@ exports.init  = function (grunt) {
             getFlag("verbose"),
             getFlag("silent"),
             getColorFlag(),
-            getCoverageFormat()
+            getCoverageFormat(),
+            getFlag("isolate")
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
