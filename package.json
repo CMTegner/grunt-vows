@@ -1,7 +1,7 @@
 {
     "name": "grunt-vows",
     "description": "A grunt task for running vows tests.",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "homepage": "https://github.com/CMTegner/grunt-vows",
     "author": {
         "name": "Christian Maughan Tegnér",
