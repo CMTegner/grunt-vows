@@ -1,5 +1,8 @@
 .gitignore
 .npmignore
+grunt-vows.iml
+grunt-vows.ipr
+grunt-vows.iws
 
 /node_modules/
 
