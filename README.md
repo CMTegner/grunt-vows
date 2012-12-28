@@ -59,6 +59,16 @@ Configuration is handled via the default grunt multi-task config schema:
         }
     });
 
+
+Release History
+---------------
+* 2012-10-29   v0.2.1   Updated to be Grunt 0.4 compatible. Added support for "isolate" option.
+* 2012-10-01   v0.2.0   Made "grunt-vows" a multi-task.
+* 2012-09-29   v0.1.3   Added support for two undocumented reporters. Fixed a bug which could prevent the task from correctly reporting test failures.
+* 2012-09-22   v0.1.2   Added "reporter", "onlyRun", "verbose", "silent", and "no-color" configuration options.
+* 2012-09-20   v0.1.1   Added "files" configuration option for specifying which files to look for specs in.
+* 2012-09-16   v0.1.0   Initial release.
+
 License
 -------
 Copyright (c) 2012-2013 Christian Maughan Tegnér
