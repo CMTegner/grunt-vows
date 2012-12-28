@@ -1,6 +1,6 @@
 grunt-vows [![Build Status](https://secure.travis-ci.org/CMTegner/grunt-vows.png)](http://travis-ci.org/CMTegner/grunt-vows)
 ==========
-A grunt task for running your vows tests.
+A grunt task for running your vows test specs.
 
 Installation
 ------------
@@ -51,12 +51,15 @@ Configuration is handled via the default grunt multi-task config schema:
                 // Run each test in its own
                 // vows process, defaults to
                 // false
-                isolate: false
+                isolate: false,
+                // String {plain|html|json|xml}
+                // defaults to none
+                coverage: "json"
             }
         }
     });
 
 License
 -------
-Copyright (c) 2012 Christian Maughan Tegnér
+Copyright (c) 2012-2013 Christian Maughan Tegnér
 Licensed under the MIT license.

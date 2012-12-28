@@ -7,7 +7,8 @@
  */
 "use strict";
 
-var reporters = ["spec", "json", "dot-matrix", "tap", "xunit"];
+var reporters = ["spec", "json", "dot-matrix", "tap", "xunit"],
+    coverageFormats = ["plain", "html", "json", "xml"];
 
 exports.init  = function (grunt) {
     var configPrefix;
@@ -29,7 +30,8 @@ exports.init  = function (grunt) {
             getFlag("verbose"),
             getFlag("silent"),
             getFlag("isolate"),
-            getColorFlag()
+            getColorFlag(),
+            getCoverageFormat()
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
@@ -82,6 +84,15 @@ exports.init  = function (grunt) {
         return "--color";
     }
 
+    function getCoverageFormat() {
+        var coverageFormat = grunt.config(configKey("coverage")),
+            index = coverageFormats.indexOf(coverageFormat);
+        if (index > -1) {
+            return "--cover-" + coverageFormat;
+        }
+        return null;
+    }
+
     return {
         setTarget: setTarget,
         buildCommand: buildCommand,
@@ -92,7 +103,8 @@ exports.init  = function (grunt) {
         getReporter: getReporter,
         getTestsToRun: getTestsToRun,
         getFlag: getFlag,
-        getColorFlag: getColorFlag
+        getColorFlag: getColorFlag,
+        getCoverageFormat: getCoverageFormat
     };
 
 };

@@ -267,6 +267,59 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     })
 
     .addBatch({
+        "get coverage format with an invalid coverage reporter specified": {
+            topic: function () {
+                GRUNT.config.init({
+                    vows: {
+                        all: {
+                            coverage: "flart"
+                        }
+                    }
+                });
+                return helpers.getCoverageFormat();
+            },
+
+            "returns null": function (topic) {
+                ASSERT.isNull(topic);
+            }
+        },
+        "get coverage format with no coverage format specified": {
+            topic: function () {
+                GRUNT.config.init({
+                    vows: {
+                        all: {}
+                    }
+                });
+                return helpers.getCoverageFormat();
+            },
+
+            "returns null": function (topic) {
+                ASSERT.isNull(topic);
+            }
+        },
+        "get coverage format with a valid coverage reporter specified": {
+            topic: function () {
+                GRUNT.config.init({
+                    vows: {
+                        all: {
+                            coverage: "json"
+                        }
+                    }
+                });
+                return helpers.getCoverageFormat();
+            },
+
+            "returns a string": function (topic) {
+                ASSERT.isString(topic);
+            },
+
+            "returns a coverage flag": function (topic) {
+                ASSERT.strictEqual(topic, "--cover-json");
+            }
+        }
+    })
+
+    .addBatch({
         "config key": {
             topic: function () {
                 return helpers.configKey("test");
