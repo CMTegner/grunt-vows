@@ -7,7 +7,8 @@
  */
 "use strict";
 
-var reporters = ["spec", "json", "dot-matrix", "tap", "xunit"],
+var fs = require("fs"),
+    reporters = ["spec", "json", "dot-matrix", "tap", "xunit"],
     coverageFormats = ["plain", "html", "json", "xml"];
 
 exports.init  = function (grunt) {
@@ -23,7 +24,7 @@ exports.init  = function (grunt) {
 
     function buildCommand() {
         return [
-            "vows",
+            getExecutable(),
             getFiles(),
             getReporter(),
             getTestsToRun(),
@@ -35,6 +36,19 @@ exports.init  = function (grunt) {
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
+    }
+
+    function getExecutable() {
+        var executable = grunt.config(configKey("executable"));
+        if (executable) {
+            return executable;
+        }
+        // Try to find a vows package installed relative to
+        // the grunt-vows task package. If none is found we
+        // will fall back to using the globally installed
+        // package (if any).
+        executable = "node_modules/vows/bin/vows";
+        return fs.existsSync(executable) ? executable : "vows";
     }
 
     function getFiles() {

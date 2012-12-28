@@ -358,7 +358,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                             onlyRun: "helper",
                             verbose: true,
                             isolate: true,
-                            silent: true
+                            silent: true,
+                            coverage: "xml"
                         }
                     }
                 });
@@ -369,35 +370,40 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                 ASSERT.isString(topic);
             },
 
-            "should include vows command at the start of the string": function (topic) {
-                ASSERT.match(topic, /^vows\s/);
+            "should include vows executable at the start of the string": function (topic) {
+                ASSERT.match(topic, /^node_modules\/vows\/bin\/vows(\s|$)/);
             },
 
             "should include 'files' option when specified": function (topic) {
-                ASSERT.match(topic, /\stests\s/);
+                ASSERT.match(topic, /\stests(\s|$)/);
             },
 
             "should include reporter flag when specified": function (topic) {
-                ASSERT.match(topic, /\s--tap\s/);
+                ASSERT.match(topic, /\s--tap(\s|$)/);
             },
 
             "should include '-m' option when specified": function (topic) {
-                ASSERT.match(topic, /\s-m\s"helper"\s/);
+                ASSERT.match(topic, /\s-m\s"helper"(\s|$)/);
             },
 
             "should include 'verbose' flag when set": function (topic) {
-                ASSERT.match(topic, /\s--verbose\s/);
+                ASSERT.match(topic, /\s--verbose(\s|$)/);
             },
 
             "should include 'silent' flag when set": function (topic) {
-                ASSERT.match(topic, /\s--silent\s/);
+                ASSERT.match(topic, /\s--silent(\s|$)/);
             },
 
             "should include '--color' flag by default": function (topic) {
-                ASSERT.match(topic, /\s--color/);
+                ASSERT.match(topic, /\s--color(\s|$)/);
             },
+
             "should include 'isolate' flag when specified": function (topic) {
-                ASSERT.match(topic, /\s--isolate\s/);
+                ASSERT.match(topic, /\s--isolate(\s|$)/);
+            },
+
+            "should include 'coverage' flag when specified": function (topic) {
+                ASSERT.match(topic, /\s--cover-xml(\s|$)/);
             }
         }
     });
