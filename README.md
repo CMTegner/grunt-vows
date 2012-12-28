@@ -62,6 +62,7 @@ Configuration is handled via the default grunt multi-task config schema:
 
 Release History
 ---------------
+* 2012-12-28   v0.3.1   Fixing a regression in support for older versions of Node.
 * 2012-12-28   v0.3.0   Added support for coverage options.
 * 2012-10-29   v0.2.1   Updated to be Grunt 0.4 compatible. Added support for "isolate" option.
 * 2012-10-01   v0.2.0   Made "grunt-vows" a multi-task.

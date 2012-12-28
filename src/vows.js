@@ -8,6 +8,7 @@
 "use strict";
 
 var fs = require("fs"),
+    path = require("path"),
     reporters = ["spec", "json", "dot-matrix", "tap", "xunit"],
     coverageFormats = ["plain", "html", "json", "xml"];
 
@@ -48,7 +49,7 @@ exports.init  = function (grunt) {
         // will fall back to using the globally installed
         // package (if any).
         executable = "node_modules/vows/bin/vows";
-        return fs.existsSync(executable) ? executable : "vows";
+        return (fs.existsSync || path.existsSync)(executable) ? executable : "vows";
     }
 
     function getFiles() {
