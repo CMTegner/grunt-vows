@@ -1,5 +1,22 @@
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+*.iml
+*.ipr
+*.iws
+
+pids
+logs
+results
+
 .gitignore
 .npmignore
+.travis.yml
 
 /node_modules/
 

@@ -7,7 +7,10 @@
  */
 "use strict";
 
-var reporters = ["spec", "json", "dot-matrix", "tap", "xunit"];
+var fs = require("fs"),
+    path = require("path"),
+    reporters = ["spec", "json", "dot-matrix", "tap", "xunit"],
+    coverageFormats = ["plain", "html", "json", "xml"];
 
 exports.init  = function (grunt) {
     var configPrefix;
@@ -22,17 +25,31 @@ exports.init  = function (grunt) {
 
     function buildCommand() {
         return [
-            "vows",
+            getExecutable(),
             getFiles(),
             getReporter(),
             getTestsToRun(),
             getFlag("verbose"),
             getFlag("silent"),
             getFlag("isolate"),
-            getColorFlag()
+            getColorFlag(),
+            getCoverageFormat()
         ].filter(function (entry) {
             return entry !== null;
         }).join(" ");
+    }
+
+    function getExecutable() {
+        var executable = grunt.config(configKey("executable"));
+        if (executable) {
+            return executable;
+        }
+        // Try to find a vows package installed relative to
+        // the grunt-vows task package. If none is found we
+        // will fall back to using the globally installed
+        // package (if any).
+        executable = "node_modules/vows/bin/vows";
+        return (fs.existsSync || path.existsSync)(executable) ? executable : "vows";
     }
 
     function getFiles() {
@@ -82,6 +99,15 @@ exports.init  = function (grunt) {
         return "--color";
     }
 
+    function getCoverageFormat() {
+        var coverageFormat = grunt.config(configKey("coverage")),
+            index = coverageFormats.indexOf(coverageFormat);
+        if (index > -1) {
+            return "--cover-" + coverageFormat;
+        }
+        return null;
+    }
+
     return {
         setTarget: setTarget,
         buildCommand: buildCommand,
@@ -92,7 +118,8 @@ exports.init  = function (grunt) {
         getReporter: getReporter,
         getTestsToRun: getTestsToRun,
         getFlag: getFlag,
-        getColorFlag: getColorFlag
+        getColorFlag: getColorFlag,
+        getCoverageFormat: getCoverageFormat
     };
 
 };
