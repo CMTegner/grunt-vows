@@ -16,10 +16,12 @@ exports.task = VOWS.describe("grunt-vows")
                 GRUNT.config.init({
                     vows: {
                         all: {
-                            executable: "../node_modules/vows/bin/vows",
-                            files: "test/*.js",
-                            onlyRun: "none",
-                            silent: true
+                            options: {
+                                executable: "../node_modules/vows/bin/vows",
+                                onlyRun: "none",
+                                silent: true
+                            },
+                            src: "test/*.js"
                         }
                     }
                 });
@@ -54,10 +56,12 @@ exports.task = VOWS.describe("grunt-vows")
                 GRUNT.config.init({
                     vows: {
                         all: {
-                            executable: "../node_modules/vows/bin/vows",
-                            files: "test/*.js",
-                            onlyRun: "pass",
-                            silent: true
+                            options: {
+                                executable: "../node_modules/vows/bin/vows",
+                                onlyRun: "pass",
+                                silent: true
+                            },
+                            src: "test/*.js"
                         }
                     }
                 });
@@ -92,10 +96,12 @@ exports.task = VOWS.describe("grunt-vows")
                 GRUNT.config.init({
                     vows: {
                         all: {
-                            executable: "../node_modules/vows/bin/vows",
-                            files: "test/*.js",
-                            onlyRun: "fail",
-                            silent: true
+                            options: {
+                                executable: "../node_modules/vows/bin/vows",
+                                onlyRun: "fail",
+                                silent: true
+                            },
+                            src: "test/*.js"
                         }
                     }
                 });
@@ -130,10 +136,12 @@ exports.task = VOWS.describe("grunt-vows")
                 GRUNT.config.init({
                     vows: {
                         all: {
-                            executable: "../node_modules/vows/bin/vows",
-                            files: "test/*.js",
-                            onlyRun: "err",
-                            silent: true
+                            options: {
+                                executable: "../node_modules/vows/bin/vows",
+                                onlyRun: "err",
+                                silent: true
+                            },
+                            src: "test/*.js"
                         }
                     }
                 });

@@ -31,30 +31,33 @@ Configuration is handled via the default grunt multi-task config schema:
     grunt.initConfig({
         vows: {
             all: {
+                options: {
+                    // String {spec|json|dot-matrix|xunit|tap}
+                    // defaults to "dot-matrix"
+                    reporter: "spec",
+                    // String or RegExp which is
+                    // matched against title to
+                    // restrict which tests to run
+                    onlyRun: /helper/,
+                    // Boolean, defaults to false
+                    verbose: false,
+                    // Boolean, defaults to false
+                    silent: false,
+                    // Colorize reporter output,
+                    // boolean, defaults to true
+                    colors: true,
+                    // Run each test in its own
+                    // vows process, defaults to
+                    // false
+                    isolate: false,
+                    // String {plain|html|json|xml}
+                    // defaults to none
+                    coverage: "json"
+                },
                 // String or array of strings
-                // determining which files to include
-                files: ["test/*.js", "spec/*"],
-                // String {spec|json|dot-matrix|xunit|tap}
-                // defaults to "dot-matrix"
-                reporter: "spec",
-                // String or RegExp which is
-                // matched against title to
-                // restrict which tests to run
-                onlyRun: /helper/,
-                // Boolean, defaults to false
-                verbose: false,
-                // Boolean, defaults to false
-                silent: false,
-                // Colorize reporter output,
-                // boolean, defaults to true
-                colors: true,
-                // Run each test in its own
-                // vows process, defaults to
-                // false
-                isolate: false,
-                // String {plain|html|json|xml}
-                // defaults to none
-                coverage: "json"
+                // determining which files to include.
+                // This option is grunt's "full" file format.
+                src: ["test/*.js", "spec/*"]
             }
         }
     });
@@ -62,6 +65,7 @@ Configuration is handled via the default grunt multi-task config schema:
 
 Release History
 ---------------
+* 2013-02-02   v0.4.0   Grunt 0.4.0rc7 compatible. Implemented support for `this.options()` and `this.files`.
 * 2012-12-28   v0.3.1   Fixing a regression in support for older versions of Node.
 * 2012-12-28   v0.3.0   Added support for coverage options.
 * 2012-10-29   v0.2.1   Updated to be Grunt 0.4 compatible. Added support for "isolate" option.

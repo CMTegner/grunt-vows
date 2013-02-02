@@ -3,22 +3,15 @@
 var VOWS = require("vows"),
     ASSERT = require("assert"),
     GRUNT = require("grunt"),
-    helpers = require("../src/vows").init(GRUNT);
+    helpers = require("../src/vows")();
 
-helpers.setTarget("all");
 GRUNT.loadTasks(__dirname + "/../tasks");
 
 exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get files called with a string": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            files: "files/*.js"
-                        }
-                    }
-                });
+                helpers.setFiles([{ src: "files/*.js" }]);
                 return helpers.getFiles();
             },
 
@@ -30,13 +23,13 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get files called with an array": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            files: ["files/*.js", "spec/*.js", "foo/bar"]
-                        }
-                    }
-                });
+                helpers.setFiles([{
+                    src: "files/*.js"
+                }, {
+                    src: "spec/*.js"
+                }, {
+                    src: "foo/bar"
+                }]);
                 return helpers.getFiles();
             },
 
@@ -46,29 +39,9 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                 ASSERT.strictEqual(topic, "files/*.js spec/*.js foo/bar");
             }
         },
-        "get files called with anything else": {
-            topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            files: 123
-                        }
-                    }
-                });
-                return helpers.getFiles();
-            },
-
-            "returns null": function (topic) {
-                ASSERT.isNull(topic);
-            }
-        },
         "get files called when no 'files' config is set": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {}
-                    }
-                });
+                helpers.setFiles(undefined);
                 return helpers.getFiles();
             },
 
@@ -81,12 +54,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get reporter called with a valid reporter value": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            reporter: "spec"
-                        }
-                    }
+                helpers.setOptions({
+                    reporter: "spec"
                 });
                 return helpers.getReporter();
             },
@@ -99,12 +68,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get reporter called with an invalid reporter": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            reporter: "foo"
-                        }
-                    }
+                helpers.setOptions({
+                    reporter: "foo"
                 });
                 return helpers.getReporter();
             },
@@ -118,12 +83,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get tests to run called with a string": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            onlyRun: "should \"only\""
-                        }
-                    }
+                helpers.setOptions({
+                    onlyRun: "should \"only\""
                 });
                 return helpers.getTestsToRun();
             },
@@ -136,12 +97,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get tests to run called with a regular expression": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            onlyRun: /test|run/
-                        }
-                    }
+                helpers.setOptions({
+                    onlyRun: /test|run/
                 });
                 return helpers.getTestsToRun();
             },
@@ -154,12 +111,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get tests to run called with anything else": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            onlyRun: false
-                        }
-                    }
+                helpers.setOptions({
+                    onlyRun: false
                 });
                 return helpers.getTestsToRun();
             },
@@ -173,12 +126,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get flag called with a flag set to true in the config": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            verbose: true
-                        }
-                    }
+                helpers.setOptions({
+                    verbose: true
                 });
                 return helpers.getFlag("verbose");
             },
@@ -191,12 +140,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get flag called with a flag set to false in the config": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            verbose: false
-                        }
-                    }
+                helpers.setOptions({
+                    verbose: false
                 });
                 return helpers.getFlag("verbose");
             },
@@ -207,6 +152,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get flag called with a flag not defined in the config": {
             topic: function () {
+                helpers.setOptions({});
                 return helpers.getFlag("silent");
             },
 
@@ -219,6 +165,7 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get color flag called with no 'colors' flag set in config": {
             topic: function () {
+                helpers.setOptions({});
                 return helpers.getColorFlag();
             },
 
@@ -230,12 +177,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get color flag called with the 'colors' flag set to true": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            colors: true
-                        }
-                    }
+                helpers.setOptions({
+                    colors: true
                 });
                 return helpers.getColorFlag();
             },
@@ -248,12 +191,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get color flag called with the 'colors' flag set to false": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            colors: false
-                        }
-                    }
+                helpers.setOptions({
+                    colors: false
                 });
                 return helpers.getColorFlag();
             },
@@ -269,12 +208,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     .addBatch({
         "get coverage format with an invalid coverage reporter specified": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            coverage: "flart"
-                        }
-                    }
+                helpers.setOptions({
+                    coverage: "flart"
                 });
                 return helpers.getCoverageFormat();
             },
@@ -285,10 +220,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get coverage format with no coverage format specified": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {}
-                    }
+                helpers.setOptions({
+                    all: {}
                 });
                 return helpers.getCoverageFormat();
             },
@@ -299,12 +232,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
         },
         "get coverage format with a valid coverage reporter specified": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            coverage: "json"
-                        }
-                    }
+                helpers.setOptions({
+                    coverage: "json"
                 });
                 return helpers.getCoverageFormat();
             },
@@ -320,48 +249,16 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
     })
 
     .addBatch({
-        "config key": {
-            topic: function () {
-                return helpers.configKey("test");
-            },
-
-            "should return an array": function (topic) {
-                ASSERT.isArray(topic);
-            },
-
-            "should have a length of three": function (topic) {
-                ASSERT.strictEqual(topic.length, 3);
-            },
-
-            "should have an element at index '0' matching 'vows'": function (topic) {
-                ASSERT.strictEqual(topic[0], "vows");
-            },
-
-            "should have an element at index '1' matching the target name": function (topic) {
-                ASSERT.strictEqual(topic[1], "all");
-            },
-
-            "should have an element at index '2' matching the key": function (topic) {
-                ASSERT.strictEqual(topic[2], "test");
-            }
-        }
-    })
-
-    .addBatch({
         "build command": {
             topic: function () {
-                GRUNT.config.init({
-                    vows: {
-                        all: {
-                            files: "tests",
-                            reporter: "tap",
-                            onlyRun: "helper",
-                            verbose: true,
-                            isolate: true,
-                            silent: true,
-                            coverage: "xml"
-                        }
-                    }
+                helpers.setFiles([{ src: "tests" }]);
+                helpers.setOptions({
+                    reporter: "tap",
+                    onlyRun: "helper",
+                    verbose: true,
+                    isolate: true,
+                    silent: true,
+                    coverage: "xml"
                 });
                 return helpers.buildCommand();
             },

@@ -12,15 +12,16 @@ var fs = require("fs"),
     reporters = ["spec", "json", "dot-matrix", "tap", "xunit"],
     coverageFormats = ["plain", "html", "json", "xml"];
 
-exports.init  = function (grunt) {
-    var configPrefix;
+module.exports = function () {
+    var options,
+        files;
 
-    function configKey(key) {
-        return configPrefix.concat(key);
+    function setOptions(opts) {
+        options = opts;
     }
 
-    function setTarget(target) {
-        configPrefix = ["vows", target];
+    function setFiles(f) {
+        files = f;
     }
 
     function buildCommand() {
@@ -40,7 +41,7 @@ exports.init  = function (grunt) {
     }
 
     function getExecutable() {
-        var executable = grunt.config(configKey("executable"));
+        var executable = options.executable;
         if (executable) {
             return executable;
         }
@@ -53,18 +54,17 @@ exports.init  = function (grunt) {
     }
 
     function getFiles() {
-        var files = grunt.config(configKey("files"));
-
-        if (typeof files === "string") {
-            return files;
-        } else if (files instanceof Array) {
-            return files.join(" ");
+        var f = [];
+        if (files) {
+            files.forEach(function (file) {
+                f = f.concat(file.src);
+            });
         }
-        return null;
+        return f.length === 0 ? null : f.join(" ");
     }
 
     function getReporter() {
-        var reporter = grunt.config(configKey("reporter")),
+        var reporter = options.reporter,
             index = reporters.indexOf(reporter);
 
         if (index === -1) {
@@ -74,7 +74,7 @@ exports.init  = function (grunt) {
     }
 
     function getTestsToRun() {
-        var onlyRun = grunt.config(configKey("onlyRun"));
+        var onlyRun = options.onlyRun;
 
         if (typeof onlyRun === "string") {
             return "-m \"" + onlyRun.replace(/"/g, "\\\"") + "\"";
@@ -85,14 +85,14 @@ exports.init  = function (grunt) {
     }
 
     function getFlag(flag) {
-        if (grunt.config(configKey(flag)) === true) {
+        if (options[flag] === true) {
             return "--" + flag;
         }
         return null;
     }
 
     function getColorFlag() {
-        var value = grunt.config(configKey("colors"));
+        var value = options.colors;
         if (value === false) {
             return "--no-color";
         }
@@ -100,7 +100,7 @@ exports.init  = function (grunt) {
     }
 
     function getCoverageFormat() {
-        var coverageFormat = grunt.config(configKey("coverage")),
+        var coverageFormat = options.coverage,
             index = coverageFormats.indexOf(coverageFormat);
         if (index > -1) {
             return "--cover-" + coverageFormat;
@@ -109,11 +109,11 @@ exports.init  = function (grunt) {
     }
 
     return {
-        setTarget: setTarget,
+        setOptions: setOptions,
+        setFiles: setFiles,
         buildCommand: buildCommand,
 
         // Exported for testing purposes
-        configKey: configKey,
         getFiles: getFiles,
         getReporter: getReporter,
         getTestsToRun: getTestsToRun,

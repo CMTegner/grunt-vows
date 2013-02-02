@@ -9,7 +9,7 @@
 module.exports = function (grunt) {
     "use strict";
 
-    var helpers = require("../src/vows").init(grunt);
+    var helpers = require("../src/vows")();
 
     /**
      * Convenience method for writing data to streams.
@@ -28,7 +28,8 @@ module.exports = function (grunt) {
         var done = this.async(),
             vows;
 
-        helpers.setTarget(this.target);
+        helpers.setOptions(this.options());
+        helpers.setFiles(this.files);
 
         vows = require("child_process").exec(helpers.buildCommand());
         vows.stdout.on("data", writer.bind(process.stdout));

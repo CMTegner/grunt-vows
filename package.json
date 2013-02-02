@@ -31,10 +31,10 @@
         "test": "grunt"
     },
     "devDependencies": {
-        "grunt": "0.4.0a",
-        "grunt-contrib-jshint": "0.1.x",
-        "grunt-contrib-watch": "0.1.x",
-        "vows": "0.6.x"
+        "grunt": "~0.4.0rc7",
+        "grunt-contrib-jshint": "~0.1.1rc6",
+        "grunt-contrib-watch": "~0.2.0rc7",
+        "vows": "~0.7.0"
     },
     "keywords": [
         "gruntplugin",
