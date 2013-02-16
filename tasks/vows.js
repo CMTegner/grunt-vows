@@ -24,14 +24,19 @@ module.exports = function (grunt) {
         }
     }
 
-    grunt.registerMultiTask("vows", "Run vows tests.", function () {
+    grunt.registerMultiTask("vows", "Run vows test specs.", function () {
         var done = this.async(),
+            command,
             vows;
 
         helpers.setOptions(this.options());
         helpers.setFiles(this.files);
 
-        vows = require("child_process").exec(helpers.buildCommand());
+        command = helpers.buildCommand();
+
+        grunt.verbose.writeln("Executing: " + command);
+
+        vows = require("child_process").exec(command);
         vows.stdout.on("data", writer.bind(process.stdout));
         vows.stderr.on("data", writer.bind(process.stderr));
         vows.on("exit", function (code) {

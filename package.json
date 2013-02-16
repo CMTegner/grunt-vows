@@ -30,11 +30,13 @@
     "scripts": {
         "test": "grunt"
     },
-    "devDependencies": {
-        "grunt": "~0.4.0rc7",
-        "grunt-contrib-jshint": "~0.1.1rc6",
-        "grunt-contrib-watch": "~0.2.0rc7",
+    "dependencies": {
         "vows": "~0.7.0"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.0rc8",
+        "grunt-contrib-jshint": "~0.1.1",
+        "grunt-contrib-watch": "~0.2.0"
     },
     "keywords": [
         "gruntplugin",

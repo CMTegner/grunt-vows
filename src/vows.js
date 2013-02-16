@@ -42,15 +42,17 @@ module.exports = function () {
 
     function getExecutable() {
         var executable = options.executable;
+        // Explicit override
         if (executable) {
             return executable;
         }
-        // Try to find a vows package installed relative to
-        // the grunt-vows task package. If none is found we
-        // will fall back to using the globally installed
-        // package (if any).
-        executable = "node_modules/vows/bin/vows";
-        return (fs.existsSync || path.existsSync)(executable) ? executable : "vows";
+        // When grunt-vows is installed as a dependency
+        executable = "node_modules/grunt-vows/node_modules/vows/bin/vows";
+        if (fs.existsSync(executable)) {
+            return executable;
+        }
+        // When grunt-vows needs to test itself
+        return "node_modules/vows/bin/vows";
     }
 
     function getFiles() {
