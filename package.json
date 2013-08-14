@@ -1,43 +1,28 @@
 {
     "name": "grunt-vows",
-    "description": "A grunt task for running vows test specs.",
     "version": "0.4.0",
+    "description": "A grunt task for running vows test specs.",
+    "keywords": [
+        "gruntplugin",
+        "vows"
+    ],
     "homepage": "https://github.com/CMTegner/grunt-vows",
-    "author": {
-        "name": "Christian Maughan Tegnér",
-        "email": "christian.tegner@gmail.com"
-    },
-    "contributors": {
-        "name": "Christian Maughan Tegnér",
-        "email": "christian.tegner@gmail.com"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/CMTegner/grunt-vows.git"
-    },
-    "bugs": {
-        "url": "https://github.com/CMTegner/grunt-vows/issues"
-    },
-    "licenses": [{
-        "type": "MIT",
-        "url": "https://github.com/CMTegner/grunt-vows/blob/master/LICENSE-MIT"
-    }],
+    "bugs": "https://github.com/CMTegner/grunt-vows/issues",
+    "license": "MIT",
+    "author": "Christian Maughan Tegnér <christian.tegner@gmail.com>",
     "main": "./tasks/grunt-vows",
     "bin": "bin/grunt-vows",
-    "engines": {
-        "node": ">=0.8"
-    },
+    "repository": "git://github.com/CMTegner/grunt-vows.git",
     "scripts": {
         "test": "grunt"
     },
     "devDependencies": {
-        "grunt": "~0.4.0",
-        "grunt-contrib-jshint": "~0.1.1",
-        "grunt-contrib-watch": "~0.2.0",
+        "grunt": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.2",
+        "grunt-contrib-watch": "~0.5.1",
         "vows": "~0.7.0"
     },
-    "keywords": [
-        "gruntplugin",
-        "vows"
-    ]
+    "engines": {
+        "node": ">=0.8"
+    }
 }
