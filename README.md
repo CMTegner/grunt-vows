@@ -1,4 +1,4 @@
-grunt-vows [![Build Status](https://secure.travis-ci.org/CMTegner/grunt-vows.png)](http://travis-ci.org/CMTegner/grunt-vows) [![Dependency Status](https://david-dm.org/CMTegner/grunt-vows.png)](https://david-dm.org/CMTegner/grunt-vows)
+grunt-vows [![Build Status](https://secure.travis-ci.org/CMTegner/grunt-vows.png)](http://travis-ci.org/CMTegner/grunt-vows) [![Dependency Status](https://david-dm.org/CMTegner/grunt-vows.png)](https://david-dm.org/CMTegner/grunt-vows) [![NPM version](https://badge.fury.io/js/grunt-vows.png)](https://npmjs.org/package/grunt-vows)
 ==========
 A grunt task for running your vows test specs.
 
