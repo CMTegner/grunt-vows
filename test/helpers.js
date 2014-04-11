@@ -267,8 +267,8 @@ exports.helpers = VOWS.describe("grunt-vows helpers")
                 ASSERT.isString(topic);
             },
 
-            "should include vows executable at the start of the string": function (topic) {
-                ASSERT.match(topic, /^node_modules\/vows\/bin\/vows(\s|$)/);
+            "should include node and the vows executable at the start of the string": function (topic) {
+                ASSERT.match(topic, /^node node_modules\/vows\/bin\/vows(\s|$)/);
             },
 
             "should include 'files' option when specified": function (topic) {
