@@ -65,6 +65,7 @@ Configuration is handled via the default grunt multi-task config schema:
 
 Release History
 ---------------
+* 2014-04-11   v0.4.1   Made task work on Windows
 * 2013-02-18   v0.4.0   Grunt 0.4.0 compatible. Implemented support for `this.options()` and `this.files`.
 * 2012-12-28   v0.3.1   Fixing a regression in support for older versions of Node.
 * 2012-12-28   v0.3.0   Added support for coverage options.
