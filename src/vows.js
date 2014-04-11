@@ -26,6 +26,7 @@ module.exports = function () {
 
     function buildCommand() {
         return [
+            "node",
             getExecutable(),
             getFiles(),
             getReporter(),
