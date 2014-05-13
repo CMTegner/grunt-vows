@@ -4,21 +4,30 @@ A grunt task for running your vows test specs.
 
 Installation
 ------------
-    › npm install grunt-vows
+
+```sh
+npm install grunt-vows
+```
 
 Usage
 -----
 Either run it via grunt by first adding this line to your project's `grunt.js` gruntfile:
 
-    grunt.loadNpmTasks("grunt-vows");
+```js
+grunt.loadNpmTasks("grunt-vows");
+```
 
 then by running the `vows` task directly (or via an alias):
 
-    › grunt vows
+```sh
+grunt vows
+```
 
 or you can run it as a stand-alone command:
 
-    › grunt-vows
+```sh
+grunt-vows
+```
 
 (requires global installation, i.e. `npm install -g grunt-vows`)
 
@@ -28,39 +37,41 @@ Configuration
 
 Configuration is handled via the default grunt multi-task config schema:
 
-    grunt.initConfig({
-        vows: {
-            all: {
-                options: {
-                    // String {spec|json|dot-matrix|xunit|tap}
-                    // defaults to "dot-matrix"
-                    reporter: "spec",
-                    // String or RegExp which is
-                    // matched against title to
-                    // restrict which tests to run
-                    onlyRun: /helper/,
-                    // Boolean, defaults to false
-                    verbose: false,
-                    // Boolean, defaults to false
-                    silent: false,
-                    // Colorize reporter output,
-                    // boolean, defaults to true
-                    colors: true,
-                    // Run each test in its own
-                    // vows process, defaults to
-                    // false
-                    isolate: false,
-                    // String {plain|html|json|xml}
-                    // defaults to none
-                    coverage: "json"
-                },
-                // String or array of strings
-                // determining which files to include.
-                // This option is grunt's "full" file format.
-                src: ["test/*.js", "spec/*"]
-            }
+```js
+grunt.initConfig({
+    vows: {
+        all: {
+            options: {
+                // String {spec|json|dot-matrix|xunit|tap}
+                // defaults to "dot-matrix"
+                reporter: "spec",
+                // String or RegExp which is
+                // matched against title to
+                // restrict which tests to run
+                onlyRun: /helper/,
+                // Boolean, defaults to false
+                verbose: false,
+                // Boolean, defaults to false
+                silent: false,
+                // Colorize reporter output,
+                // boolean, defaults to true
+                colors: true,
+                // Run each test in its own
+                // vows process, defaults to
+                // false
+                isolate: false,
+                // String {plain|html|json|xml}
+                // defaults to none
+                coverage: "json"
+            },
+            // String or array of strings
+            // determining which files to include.
+            // This option is grunt's "full" file format.
+            src: ["test/*.js", "spec/*"]
         }
-    });
+    }
+});
+```
 
 
 Release History
