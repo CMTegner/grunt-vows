@@ -19,16 +19,7 @@ module.exports = function (grunt) {
         jshint: {
             all: jsFiles,
             options: {
-                // Enforcing options
-                forin: false,
-                indent: 4,
-                plusplus: false,
-                quotmark: "double",
-                regexp: false,
-                // Relaxing options
-                globalstrict: true,
-                // Environments
-                node: true
+                jshintrc: true
             }
         },
         vows: {
