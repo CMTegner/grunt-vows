@@ -10,7 +10,7 @@
     "bugs": "https://github.com/CMTegner/grunt-vows/issues",
     "license": "MIT",
     "author": "Christian Maughan Tegnér <christian.tegner@gmail.com>",
-    "main": "./tasks/grunt-vows",
+    "main": "tasks/vows.js",
     "bin": "bin/grunt-vows",
     "repository": "git://github.com/CMTegner/grunt-vows.git",
     "scripts": {
